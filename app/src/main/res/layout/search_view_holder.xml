@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:weightSum="100">
+
+    <ImageView
+        android:id="@+id/album_artwork_iv"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="35"/>
+
+   <RelativeLayout
+       android:layout_width="0dp"
+       android:layout_height="match_parent"
+       android:layout_weight="65">
+
+       <TextView
+           android:id="@+id/track_name_tv"
+           android:text="@string/filler_text"
+           android:layout_marginTop="@dimen/search_vh_margin_top"
+           android:textSize="@dimen/search_vh_text_size_track_name"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+
+       <TextView
+           android:id="@+id/artist_name_tv"
+           android:text="@string/filler_text"
+           android:textSize="@dimen/search_vh_text_size_artist_name"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_below="@id/track_name_tv"/>
+
+       <TextView
+           android:id="@+id/artist_album_tv"
+           android:text="@string/filler_text"
+           android:layout_below="@id/artist_name_tv"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="@dimen/search_vh_text_size_album_name"/>
+
+
+   </RelativeLayout>
+
+
+
+</LinearLayout>
