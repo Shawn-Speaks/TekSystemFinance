@@ -2,11 +2,13 @@ package shawn.c4q.nyc.chasemusic.model.itunesmodel;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by shawnspeaks on 10/7/17.
  */
 
-public class Result {
+public class Result implements Serializable {
 
     @SerializedName("kind")
     private String kind;

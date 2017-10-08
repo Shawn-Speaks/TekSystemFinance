@@ -18,6 +18,7 @@ import butterknife.BindView;
 import shawn.c4q.nyc.chasemusic.R;
 import shawn.c4q.nyc.chasemusic.app.ApplicationExtension;
 import shawn.c4q.nyc.chasemusic.dagger.AppComponent;
+import shawn.c4q.nyc.chasemusic.fragment.LyricFragment;
 import shawn.c4q.nyc.chasemusic.model.itunesmodel.ItunesResponse;
 import shawn.c4q.nyc.chasemusic.model.itunesmodel.Result;
 import shawn.c4q.nyc.chasemusic.search.recycler.SearchAdapter;
@@ -121,6 +122,11 @@ public class SearchActivity extends BaseActivitiy implements View.OnClickListene
     @Override
     public void handleResultClick(View view, Result result) {
 
+        LyricFragment lyricFragment = new LyricFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable( "RESULT_KEY", result);
+        lyricFragment.setArguments(bundle);
+        lyricFragment.show(getFragmentManager(), "LyricFragment");
 
     }
 }
