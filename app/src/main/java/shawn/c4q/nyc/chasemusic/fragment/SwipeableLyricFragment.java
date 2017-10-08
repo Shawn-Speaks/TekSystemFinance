@@ -23,7 +23,7 @@ import static shawn.c4q.nyc.chasemusic.R.layout.swipe_fragment;
  * Created by shawnspeaks on 10/7/17.
  */
 
-public class LyricFragment extends SwipeAwayDialogFragment{
+public class SwipeableLyricFragment extends SwipeAwayDialogFragment{
 
     @BindView(R.id.background_iv)
     ImageView backgroundImageView;
@@ -45,7 +45,6 @@ public class LyricFragment extends SwipeAwayDialogFragment{
         super.onAttach(context);
     }
 
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -65,6 +64,13 @@ public class LyricFragment extends SwipeAwayDialogFragment{
         }else{
             Log.d("DEBUG TOOL", "currentSongResult is null");
         }
+        // for the interest of time I went with a less favorable method to retrieve the php JSON. It would've been niice to find a way to implement this without the use of Asynch Task.
+        new GetLyrics(new LyricsRecievedCallback() {
+            @Override
+            public void lyricsRecieved(String s) {
+                retreivedJson(s);
+            }
+        }, currentSongResult.getArtistName(), currentSongResult.getTrackName()).execute();
         return dialog;
     }
 
@@ -76,4 +82,11 @@ public class LyricFragment extends SwipeAwayDialogFragment{
         albumNameTextView.setText(result.getAlbumName());
 
     }
+
+
+    private void retreivedJson(String s) {
+        lyricsTextView.setText(s);
+        Log.d("DEBUG TOOL", s);
+    }
+
 }

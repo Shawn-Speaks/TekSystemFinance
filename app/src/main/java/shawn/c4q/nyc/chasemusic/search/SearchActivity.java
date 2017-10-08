@@ -18,7 +18,7 @@ import butterknife.BindView;
 import shawn.c4q.nyc.chasemusic.R;
 import shawn.c4q.nyc.chasemusic.app.ApplicationExtension;
 import shawn.c4q.nyc.chasemusic.dagger.AppComponent;
-import shawn.c4q.nyc.chasemusic.fragment.LyricFragment;
+import shawn.c4q.nyc.chasemusic.fragment.SwipeableLyricFragment;
 import shawn.c4q.nyc.chasemusic.model.itunesmodel.ItunesResponse;
 import shawn.c4q.nyc.chasemusic.model.itunesmodel.Result;
 import shawn.c4q.nyc.chasemusic.search.recycler.SearchAdapter;
@@ -43,9 +43,10 @@ public class SearchActivity extends BaseActivitiy implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         searchBtn.setOnClickListener(this);
         initRV();
+
+        // With more time I would have implemented saving the instanceState so the result from the API call is not lost on orientation change.
     }
 
     @Override
@@ -121,12 +122,10 @@ public class SearchActivity extends BaseActivitiy implements View.OnClickListene
 
     @Override
     public void handleResultClick(View view, Result result) {
-
-        LyricFragment lyricFragment = new LyricFragment();
+        SwipeableLyricFragment swipeableLyricFragment = new SwipeableLyricFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable( "RESULT_KEY", result);
-        lyricFragment.setArguments(bundle);
-        lyricFragment.show(getFragmentManager(), "LyricFragment");
-
+        swipeableLyricFragment.setArguments(bundle);
+        swipeableLyricFragment.show(getFragmentManager(), "SwipeableLyricFragment");
     }
 }
