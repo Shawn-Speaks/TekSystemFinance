@@ -15,6 +15,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import shawn.c4q.nyc.chasemusic.R;
+import shawn.c4q.nyc.chasemusic.app.ApplicationExtension;
+import shawn.c4q.nyc.chasemusic.dagger.AppComponent;
 import shawn.c4q.nyc.chasemusic.model.itunesmodel.ItunesResponse;
 
 public class SearchActivity extends BaseActivitiy implements View.OnClickListener, MainView{
@@ -30,6 +32,8 @@ public class SearchActivity extends BaseActivitiy implements View.OnClickListene
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
 
+    private AppComponent component;
+
     @Inject SearchPresenter presenter;
 
     @Override
@@ -38,16 +42,7 @@ public class SearchActivity extends BaseActivitiy implements View.OnClickListene
 
         searchBtn.setOnClickListener(this);
 
-//        button = (Button) findViewById(R.id.testBtn);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                new GetLyrics().execute();
-//            }
-//        });
         presenter.initialize();
-
-
     }
 
     @Override
@@ -56,6 +51,7 @@ public class SearchActivity extends BaseActivitiy implements View.OnClickListene
         presenter.destroy();
     }
 
+
     @Override
     protected void setupPresenter() {
         presenter.bindView(this);
@@ -63,7 +59,8 @@ public class SearchActivity extends BaseActivitiy implements View.OnClickListene
 
     @Override
     protected void setupInjector() {
-
+        component = ((ApplicationExtension) getApplication()).getComponent();
+        component.inject(this);
     }
 
     @Override
@@ -75,9 +72,11 @@ public class SearchActivity extends BaseActivitiy implements View.OnClickListene
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.search_btn:
+                //check if the edit text field is empty
                 if(searchEditText.getText().length() > 0){
                     makeRequest(searchEditText.getText().toString());
                     try {
+                        //Style code to drop the keyboard after a search is submitted
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
                     } catch (Exception e) {

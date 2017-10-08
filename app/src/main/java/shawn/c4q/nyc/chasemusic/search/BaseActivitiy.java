@@ -8,15 +8,15 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivitiy extends AppCompatActivity {
 
-    @LayoutRes
-    protected int layoutId;
+    @LayoutRes protected int layoutId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layoutId);
         setLayoutId();
+        setContentView(layoutId);
         bindView();
+
         setupInjector();
         setupPresenter();
     }
