@@ -45,7 +45,9 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:4.0.0-RC0'
     compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
     compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
+    compile 'com.labo.kaji:swipeawaydialog:0.1.1'
     testCompile 'junit:junit:4.12'
+    testCompile "org.robolectric:robolectric:3.2.2"
     annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     provided 'javax.annotation:jsr250-api:1.0'

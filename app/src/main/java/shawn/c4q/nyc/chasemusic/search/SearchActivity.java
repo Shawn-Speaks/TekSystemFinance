@@ -2,6 +2,7 @@ package shawn.c4q.nyc.chasemusic.search;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -18,8 +19,10 @@ import shawn.c4q.nyc.chasemusic.R;
 import shawn.c4q.nyc.chasemusic.app.ApplicationExtension;
 import shawn.c4q.nyc.chasemusic.dagger.AppComponent;
 import shawn.c4q.nyc.chasemusic.model.itunesmodel.ItunesResponse;
+import shawn.c4q.nyc.chasemusic.model.itunesmodel.Result;
+import shawn.c4q.nyc.chasemusic.search.recycler.SearchAdapter;
 
-public class SearchActivity extends BaseActivitiy implements View.OnClickListener, MainView{
+public class SearchActivity extends BaseActivitiy implements View.OnClickListener, MainView, SearchItemCallback{
 
 
     private static final String TAG = "DEBUG TOOL";
@@ -41,8 +44,7 @@ public class SearchActivity extends BaseActivitiy implements View.OnClickListene
         super.onCreate(savedInstanceState);
 
         searchBtn.setOnClickListener(this);
-
-        presenter.initialize();
+        initRV();
     }
 
     @Override
@@ -51,11 +53,11 @@ public class SearchActivity extends BaseActivitiy implements View.OnClickListene
         presenter.destroy();
     }
 
-
     @Override
     protected void setupPresenter() {
         presenter.bindView(this);
     }
+
 
     @Override
     protected void setupInjector() {
@@ -89,6 +91,10 @@ public class SearchActivity extends BaseActivitiy implements View.OnClickListene
         }
     }
 
+    private void initRV() {
+        searchRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+    }
+
     private void makeRequest(String queryString){
         presenter.loadTracks(queryString);
     }
@@ -107,6 +113,14 @@ public class SearchActivity extends BaseActivitiy implements View.OnClickListene
     @Override
     public void itunesSearchSuccess(ItunesResponse response) {
         Toast.makeText(this, String.valueOf(response.getResultCount()), Toast.LENGTH_SHORT).show();
+        SearchAdapter adapter = new SearchAdapter(response.getResultList());
+        searchRecycler.setAdapter(adapter);
+        searchRecycler.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void handleResultClick(View view, Result result) {
+
 
     }
 }

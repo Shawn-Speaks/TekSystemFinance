@@ -1,5 +1,7 @@
 package shawn.c4q.nyc.chasemusic.model.itunesmodel;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 /**
@@ -8,7 +10,9 @@ import java.util.ArrayList;
 
 public class ItunesResponse {
 
+    @SerializedName("resultCount")
     private int resultCount;
+    @SerializedName("results")
     private ArrayList<Result> resultList;
 
     public int getResultCount() {
